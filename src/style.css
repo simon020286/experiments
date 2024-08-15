@@ -1,0 +1,14 @@
+ul {
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+	height: 400px;
+	overflow: scroll;
+	scroll-snap-type: y mandatory;
+}
+
+li {
+	border: 1px solid red;
+	scroll-snap-align: start;
+}
