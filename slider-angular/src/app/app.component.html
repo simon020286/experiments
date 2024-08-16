@@ -1,0 +1,13 @@
+<main style="height: 100%">
+  <div>
+    isStart {{isStart()}}<br>
+    isEnd {{isEnd()}}
+  </div>
+  <button (click)="next()" [disabled]="isEnd()">Next</button>
+  <div slider [firstVisible]="firstVisible()" (isEnd)="isEnd.set($event)" (isStart)="isStart.set($event)" style="height: 500px; overflow: scroll">
+    @for(image of images(); track $index) {
+     <div sliderItem style="border: 1px solid red;" [style.height]="image.height+'px'">{{$index}}</div>
+    }
+  </div>
+  <button (click)="prev()" [disabled]="isStart()">Prev</button>
+</main>
