@@ -16,7 +16,7 @@ export class SliderItem {
   selector: '[slider]',
   standalone: true,
 })
-export class SliderDirective implements OnInit {
+export class SliderDirective {
   private elRef = inject(ElementRef);
   elements = contentChildren(SliderItem);
 
@@ -30,10 +30,6 @@ export class SliderDirective implements OnInit {
         this.elements()[this.firstVisible()].scrollIntoView();
       }
     });
-  }
-
-  ngOnInit() {
-    console.log('Elements ', this.elements());
   }
 
   @HostListener('scroll')
