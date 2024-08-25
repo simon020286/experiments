@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SliderDirective, SliderItem } from './slider/slider.directive';
 import { HttpClient } from '@angular/common/http';
@@ -17,6 +17,10 @@ export class AppComponent {
   isEnd = signal(false);
   images = signal<{ src: string, alt: string }[]>([]);
   firstVisible = signal(0);
+  currentItem = signal<SliderItem | undefined>(undefined);
+  currentImage = computed(() => {
+    return this.currentItem() ? (this.currentItem()?.element as HTMLImageElement).src : undefined;
+  });
 
   constructor() {
     //const gra = function(min: number, max: number) {
