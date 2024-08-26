@@ -1,12 +1,14 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, ElementRef, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SliderDirective, SliderItem } from './slider/slider.directive';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SliderDirective, SliderItem],
+  imports: [RouterOutlet, SliderDirective, SliderItem, AsyncPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -15,26 +17,14 @@ export class AppComponent {
   httpClient = inject(HttpClient);
   isStart = signal(true);
   isEnd = signal(false);
-  images = signal<{ src: string, alt: string }[]>([]);
+  images$ = this.httpClient.get<any[]>('https://fakestoreapi.com/products')
+  .pipe(map(data => data.map(item => ({ src: item.image, alt: item.title }))));
+
   firstVisible = signal(0);
   currentItem = signal<SliderItem | undefined>(undefined);
   currentImage = computed(() => {
     return this.currentItem() ? (this.currentItem()?.element as HTMLImageElement).src : undefined;
   });
-
-  constructor() {
-    //const gra = function(min: number, max: number) {
-    //  return Math.random() * (max - min) + min;
-    //}
-
-    //for (let i = 0; i < 15; i++) {
-    //  this.images.update(current => [...current, { height: gra(40, 80) }]);
-    //}
-    this.httpClient.get<any[]>('https://fakestoreapi.com/products')
-      .subscribe(data => {
-        this.images.set(data.map(item => ({ src: item.image, alt: item.title })));
-      });
-  }
 
   prev() {
     this.firstVisible.update(value => value - 1);

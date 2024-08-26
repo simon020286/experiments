@@ -20,10 +20,10 @@
     <div>
       <button (click)="next()" [disabled]="isEnd()">Next</button>
       <div slider [(currentElement)]="currentItem" [(firstVisible)]="firstVisible" (isEnd)="isEnd.set($event)"
-        (isStart)="isStart.set($event)" class="flex flex-col" style="height: 500px;">
-        @for(image of images(); track $index) {
-        <img sliderItem [src]="image.src" [alt]="image.alt" />
-        }
+        (isStart)="isStart.set($event)" class="flex gap-3">
+          @for(image of images$ | async; track $index) {
+            <img sliderItem [src]="image.src" [alt]="image.alt" />
+          }
       </div>
       <button (click)="prev()" [disabled]="isStart()">Prev</button>
     </div>

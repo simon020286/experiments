@@ -19,16 +19,25 @@ html, body {
   flex-direction: column;
 }
 
-.snap-y-mandatory {
-  scroll-snap-type: y mandatory;
+:not([direction="horizontal"])[slider] {
+  flex-direction: column;
+  height: 500px;
 }
 
-[slideritem] {
-  width: 200px;
-  height: auto; 
+[slider][direction="horizontal"] {
+  width: 500px;
+}
+
+[slideritem] { 
   border: 1px solid red;
 }
 
-.overflow-scroll {
-  overflow: scroll;
+:not([direction="horizontal"])[slider] [slideritem] {
+  width: 200px;
+  height: auto;
+}
+
+[slider][direction="horizontal"] [slideritem] {
+  width: auto;
+  height: 200px;
 }
