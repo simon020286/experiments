@@ -1,4 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
 html, body {
-  height: 100%;
+  height: 90%;
+}
+
+.flex {
+  display: flex;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.gap-3 {
+  gap: .75rem;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+:not([direction="horizontal"])[slider] {
+  flex-direction: column;
+  height: 500px;
+}
+
+[slider][direction="horizontal"] {
+  width: 500px;
+}
+
+[slideritem] { 
+  border: 1px solid red;
+}
+
+:not([direction="horizontal"])[slider] [slideritem] {
+  width: 200px;
+  height: auto;
+}
+
+[slider][direction="horizontal"] [slideritem] {
+  width: auto;
+  height: 200px;
 }
